@@ -1,183 +1,1439 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="shortcut icon" href="Excel3.ico" type="image/x-icon">
   <title>Excel sem Neura | Aprenda Excel do Zero</title>
 
-  
-  
-  <!-- Bootstrap CDN -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+  <!-- Google Fonts: Inter & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <!-- CSS EMBUTIDO -->
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      margin-top: 70px;
+    /* Animações e ajustes finos de layout */
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(0.98); }
     }
-
-    .hero {
-      min-height: 90vh;
-      background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)),
-        url("https://images.unsplash.com/photo-1551288049-bebda4e38f71");
-      background-size: cover;
-      background-position: center;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      text-align: center;
+    .animate-pulse-subtle {
+      animation: pulse-subtle 3s infinite ease-in-out;
     }
-
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: bold;
+    /* Estilos para ocultar scrollbars se necessário */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
     }
-
-    .hero p {
-      font-size: 1.3rem;
-      margin: 20px 0;
-    }
-
-    .section {
-      padding: 60px 0;
-    }
-
-    .benefit-box {
-      background: #f8f9fa;
-      padding: 25px;
-      border-radius: 10px;
-      height: 100%;
-    }
-
-    .cta-btn {
-      font-size: 1.2rem;
-      padding: 15px 30px;
-    }
-
-    footer {
-      background: #111;
-      color: #ccc;
-      padding: 30px 0;
-      text-align: center;
-    }
-
-    footer a {
-      color: #0d6efd;
-      text-decoration: none;
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   </style>
 </head>
 
-<body>
+<body class="bg-[#0b0f19] text-slate-100 font-sans antialiased selection:bg-emerald-500 selection:text-slate-900">
 
+  <!-- AVISO DE URGÊNCIA NO TOPO -->
+  <div class="bg-emerald-600 text-white text-xs sm:text-sm font-medium py-2.5 px-4 text-center sticky top-0 z-50 flex items-center justify-center gap-2 shadow-md">
+    <svg class="w-4 h-4 animate-bounce shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <span>
+      <strong>ÚLTIMAS HORAS:</strong> Desconto de 90% + Acesso Vitalício expira em 
+      <span id="countdown" class="font-mono bg-black/30 px-2 py-0.5 rounded text-yellow-300 font-bold tracking-wider">14:59</span>
+    </span>
+  </div>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="#inicio">Excel sem Neura</a>
+  <!-- MENU DE NAVEGAÇÃO -->
+  <nav class="bg-[#0d1321]/95 backdrop-blur-md border-b border-slate-850 text-white sticky top-[38px] z-40 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <div class="flex items-center gap-2">
+          <div class="bg-emerald-500 p-2 rounded-xl text-slate-950 shadow-md shadow-emerald-500/20">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <span class="font-display font-bold text-lg sm:text-xl tracking-tight">
+            Excel <span class="text-emerald-400">sem Neura</span>
+          </span>
+        </div>
 
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="#curso">O Curso</a></li>
-        <li class="nav-item"><a class="nav-link" href="#beneficios">Benefícios</a></li>
-        <li class="nav-item"><a class="nav-link" href="#checkout">Comprar</a></li>
-      </ul>
+        <!-- Links Desktop -->
+        <div class="hidden md:flex items-center gap-8 text-sm">
+          <a href="#curso" class="text-slate-300 hover:text-emerald-400 font-medium transition-colors">O Curso</a>
+          <a href="#simulador" class="text-slate-300 hover:text-emerald-400 font-medium transition-colors">Simulador</a>
+          <a href="#ia-assistente" class="text-slate-300 hover:text-emerald-400 font-medium transition-colors">Gerador de Fórmulas</a>
+          <a href="#quiz" class="text-slate-300 hover:text-emerald-400 font-medium transition-colors">Teste de Nível</a>
+          <a href="#faq" class="text-slate-300 hover:text-emerald-400 font-medium transition-colors">Dúvidas</a>
+        </div>
+
+        <!-- Botão CTA Desktop -->
+        <div class="hidden md:block">
+          <a href="#checkout" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-5 py-2.5 rounded-xl font-bold text-sm tracking-wide shadow-lg shadow-emerald-500/10 transition-all hover:scale-105 inline-flex items-center gap-1.5">
+            Garantir Vaga
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Botão Hamburger Mobile -->
+        <div class="md:hidden">
+          <button id="menu-btn" class="text-slate-300 hover:text-white p-2 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[#0d1321] border-t border-slate-800 px-4 py-4 space-y-2">
+      <a href="#curso" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800">O Curso</a>
+      <a href="#simulador" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800">Simulador Interativo</a>
+      <a href="#ia-assistente" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800">Fórmulas IA</a>
+      <a href="#quiz" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800">Teste de Nível</a>
+      <a href="#faq" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800">Dúvidas Frequentes</a>
+      <a href="#checkout" class="block w-full text-center bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-4 py-3 rounded-xl font-bold tracking-wide transition-all mt-4">Comprar Agora com 90% OFF</a>
     </div>
   </nav>
 
-  
-  <section id="inicio" class="hero">
-    <div class="container">
-      <h1>Excel sem Neura</h1>
-      <p>Aprenda Excel do zero de forma simples, prática e sem complicação.</p>
-      <a href="#checkout" class="btn btn-success cta-btn">
-        Quero acessar o curso agora
-      </a>
+  <!-- HERO SECTION -->
+  <section id="inicio" class="relative pt-12 pb-20 md:py-28 overflow-hidden">
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] sm:w-[500px] sm:h-[500px] bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Textos -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-bold border border-emerald-500/20">
+            ⭐ Metodologia 100% Prática baseada em Casos Reais
+          </span>
+          
+          <h1 class="text-3xl sm:text-5xl md:text-6xl font-display font-black tracking-tight text-white leading-tight">
+            Aprenda Excel do Zero <br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">
+              Sem Neura e Sem Medo
+            </span>
+          </h1>
+
+          <p class="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            Descubra como criar planilhas inteligentes, automatizar tarefas com fórmulas simples e se destacar no mercado de trabalho — mesmo que você nunca tenha aberto uma planilha antes!
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+            <a href="#checkout" class="w-full sm:w-auto text-center bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-8 py-4 rounded-xl text-base tracking-wide shadow-xl shadow-emerald-500/15 transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
+              Quero Acessar o Curso Agora
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </a>
+            <a href="#simulador" class="w-full sm:w-auto text-center bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 hover:border-slate-750 font-bold px-8 py-4 rounded-xl text-sm transition-all flex items-center justify-center gap-2">
+              Testar Simulador Grátis
+            </a>
+          </div>
+
+          <!-- Benefícios Rápidos -->
+          <div class="grid grid-cols-2 gap-4 max-w-md mx-auto lg:mx-0 pt-6 border-t border-slate-900 text-left">
+            <div class="flex items-center gap-2 text-xs sm:text-sm text-slate-300">
+              <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Acesso Vitalício</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs sm:text-sm text-slate-300">
+              <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Certificado Incluso</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs sm:text-sm text-slate-300">
+              <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Garantia de 7 dias</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs sm:text-sm text-slate-300">
+              <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>Área de Alunos Própria</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card de Vídeo e Escassez -->
+        <div class="lg:col-span-5">
+          <div class="bg-[#0f1626] border border-slate-800 rounded-3xl p-6 shadow-2xl relative">
+            <div class="bg-slate-950 rounded-2xl p-5 border border-slate-850 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-850 pb-3">
+                <span class="text-xs font-mono text-emerald-400">#metodo_exclusivo_demo.mp4</span>
+                <span class="flex items-center gap-1.5 text-[10px] text-slate-500 font-mono">
+                  <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> AO VIVO
+                </span>
+              </div>
+
+              <!-- Vídeo Mockup -->
+              <div class="aspect-video bg-gradient-to-br from-emerald-950/80 to-slate-900 rounded-xl relative flex flex-col items-center justify-center border border-slate-800 overflow-hidden group">
+                <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-all"></div>
+                <div class="w-14 h-14 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform relative z-10 cursor-pointer">
+                  <svg class="w-6 h-6 fill-slate-950 ml-1" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+                <span class="text-xs text-emerald-300 font-bold mt-3 relative z-10 tracking-wide uppercase">Assistir Apresentação</span>
+              </div>
+
+              <div class="space-y-2">
+                <div class="flex items-center justify-between text-xs text-slate-400">
+                  <span>Domínio do Conteúdo:</span>
+                  <span class="font-semibold text-white">Do Absoluto Zero ao Pro</span>
+                </div>
+                <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-emerald-500 h-full w-2/5"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dados de Conversão -->
+            <div class="mt-6 flex items-center justify-between gap-2 border-t border-slate-800 pt-4">
+              <div class="text-center flex-1">
+                <span class="block text-xl font-bold text-white">R$ 39,90</span>
+                <span class="text-[10px] text-slate-500 uppercase font-medium">Preço de Lançamento</span>
+              </div>
+              <div class="w-px h-8 bg-slate-800"></div>
+              <div className="text-center flex-1">
+                <span class="block text-xl font-bold text-emerald-400">90% OFF</span>
+                <span class="text-[10px] text-slate-500 uppercase font-medium">Cupom Pré-Ativado</span>
+              </div>
+              <div class="w-px h-8 bg-slate-800"></div>
+              <div class="text-center flex-1">
+                <span id="seats" class="block text-xl font-bold text-yellow-400">17</span>
+                <span class="text-[10px] text-yellow-400/80 uppercase font-bold">Vagas Restantes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  
-  <section id="curso" class="section container">
-    <div class="row align-items-center">
-      <div class="col-md-6">
-        <h2>O que é o Excel sem Neura?</h2>
-        <p>
-          O <strong>Excel sem Neura</strong> é um curso criado para quem
-          quer aprender Excel sem medo, sem termos difíceis e sem enrolação.
+  <!-- PITCH: O QUE É O CURSO -->
+  <section id="curso" class="py-20 bg-[#0d1321] border-y border-slate-900 scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Descritivos -->
+        <div class="lg:col-span-6 space-y-6">
+          <span class="bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-emerald-500/20 inline-flex items-center gap-1.5">
+            📚 Conteúdo Descomplicado
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-display font-black tracking-tight text-white leading-tight">
+            Afinal, o que é o <br />
+            <span class="text-emerald-400">Excel sem Neura?</span>
+          </h2>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            Esqueça cursos longos, cansativos e cheios de conceitos em inglês que você nunca vai usar. O <strong>Excel sem Neura</strong> é focado no que dá resultado rápido.
+          </p>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            Criamos um passo a passo do absoluto zero focado na prática real. Em poucas aulas, você vai dominar **as 20% das ferramentas do Excel que resolvem 80% das tarefas** de qualquer empresa do mundo!
+          </p>
+
+          <div class="space-y-4 pt-2">
+            <div class="flex items-start gap-3">
+              <div class="bg-emerald-500/10 p-1.5 rounded-lg text-emerald-400 shrink-0 mt-0.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-sm sm:text-base font-bold text-slate-100">Videoaulas Diretas ao Ponto</h4>
+                <p class="text-slate-400 text-xs sm:text-sm">Aulas dinâmicas de 10 a 15 minutos que encaixam na sua rotina do dia a dia.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="bg-emerald-500/10 p-1.5 rounded-lg text-emerald-400 shrink-0 mt-0.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-sm sm:text-base font-bold text-slate-100">Planilhas Prontas para Download</h4>
+                <p class="text-slate-400 text-xs sm:text-sm">Baixe os mesmos arquivos das aulas e treine simulando a vida real das corporações.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="bg-emerald-500/10 p-1.5 rounded-lg text-emerald-400 shrink-0 mt-0.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-sm sm:text-base font-bold text-slate-100">Suporte Dedicado</h4>
+                <p class="text-slate-400 text-xs sm:text-sm">Tire suas dúvidas técnicas rapidamente com tutores qualificados, sem enrolação.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Módulos de Aprendizado -->
+        <div class="lg:col-span-6 space-y-4">
+          <span class="text-xs uppercase font-mono tracking-wider text-slate-500 block">Cronograma de Aulas</span>
+          
+          <div class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-5 hover:border-emerald-500/30 transition-all">
+            <div class="flex justify-between items-center mb-2">
+              <span class="bg-emerald-500/15 text-emerald-400 text-[10px] font-mono font-bold px-2 py-0.5 rounded">MÓDULO 01</span>
+              <span class="text-xs text-slate-500">4 Aulas</span>
+            </div>
+            <h3 class="text-sm sm:text-base font-bold text-white">Primeiros Passos (O Despertar)</h3>
+            <p class="text-xs text-slate-400 mt-1">Conheça a interface do Excel, aprenda atalhos essenciais e como realizar cálculos lógicos manuais (+, -, *, /).</p>
+          </div>
+
+          <div class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-5 hover:border-emerald-500/30 transition-all">
+            <div class="flex justify-between items-center mb-2">
+              <span class="bg-emerald-500/15 text-emerald-400 text-[10px] font-mono font-bold px-2 py-0.5 rounded">MÓDULO 02</span>
+              <span class="text-xs text-slate-500">6 Aulas</span>
+            </div>
+            <h3 class="text-sm sm:text-base font-bold text-white">Fórmulas e Funções Inteligentes (SOMA, SE, MÉDIA)</h3>
+            <p class="text-xs text-slate-400 mt-1">Veja como criar condições que calculam valores automaticamente e preenchem o status de linhas baseado em metas.</p>
+          </div>
+
+          <div class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-5 hover:border-emerald-500/30 transition-all">
+            <div class="flex justify-between items-center mb-2">
+              <span class="bg-emerald-500/15 text-emerald-400 text-[10px] font-mono font-bold px-2 py-0.5 rounded">MÓDULO 03</span>
+              <span class="text-xs text-slate-500">5 Aulas</span>
+            </div>
+            <h3 class="text-sm sm:text-base font-bold text-white">Procuras Rápidas em Tabelas Grandes (PROCV)</h3>
+            <p class="text-xs text-slate-400 mt-1">Automatize a busca de produtos, e-mails, preços ou qualquer outro registro em planilhas gigantes com um clique.</p>
+          </div>
+
+          <div class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-5 hover:border-emerald-500/30 transition-all">
+            <div class="flex justify-between items-center mb-2">
+              <span class="bg-emerald-500/15 text-emerald-400 text-[10px] font-mono font-bold px-2 py-0.5 rounded">MÓDULO 04</span>
+              <span class="text-xs text-slate-500">5 Aulas</span>
+            </div>
+            <h3 class="text-sm sm:text-base font-bold text-white">Relatórios e Tabelas Dinâmicas</h3>
+            <p class="text-xs text-slate-400 mt-1">Aprenda a criar tabelas dinâmicas robustas e gráficos limpos para surpreender a diretoria da sua empresa.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERATIVO 1: SIMULADOR DE EXCEL -->
+  <section id="simulador" class="py-20 bg-[#0b0f19] scroll-mt-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-emerald-500/20">
+          ⚙️ Pratique de Verdade
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold mt-4 tracking-tight">
+          Simulador Prático Interativo
+        </h2>
+        <p class="text-slate-400 mt-3 max-w-2xl mx-auto text-sm sm:text-base">
+          Escolha um cenário, veja a fórmula correspondente e clique em executar para ver os cálculos acontecerem na planilha de exemplo. Você pode editar os valores clicando duas vezes neles!
         </p>
-        <p>
-          Ideal para estudantes, profissionais e empreendedores que querem
-          ganhar produtividade, organizar dados e se destacar no mercado.
+      </div>
+
+      <!-- Botões de Troca de Cenário -->
+      <div class="flex flex-wrap justify-center gap-2 mb-10" id="sim-tabs">
+        <button onclick="changeScenario('soma')" id="tab-soma" class="px-5 py-3 rounded-xl font-bold text-xs sm:text-sm border transition-all bg-emerald-500 text-slate-950 border-emerald-400 shadow-md">
+          📊 Soma de Despesas
+        </button>
+        <button onclick="changeScenario('se')" id="tab-se" class="px-5 py-3 rounded-xl font-medium text-xs sm:text-sm border border-slate-850 bg-slate-900 text-slate-300 hover:text-white transition-all">
+          🎓 Status de Alunos (SE)
+        </button>
+        <button onclick="changeScenario('procv')" id="tab-procv" class="px-5 py-3 rounded-xl font-medium text-xs sm:text-sm border border-slate-850 bg-slate-900 text-slate-300 hover:text-white transition-all">
+          🔍 Busca de Preços (PROCV)
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Painel Lateral -->
+        <div class="lg:col-span-4 bg-slate-900/50 border border-slate-800 rounded-2xl p-6 shadow-xl">
+          <h3 class="text-lg font-bold text-emerald-400 mb-2 flex items-center gap-1.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Entendendo a Função
+          </h3>
+          <p id="scenario-challenge" class="text-slate-300 text-sm mb-4 leading-relaxed">
+            Queremos somar todas as despesas mensais para descobrir o total gasto.
+          </p>
+
+          <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 mb-5">
+            <span class="text-xs text-slate-500 font-mono tracking-wider block mb-1">CÓDIGO DA FÓRMULA</span>
+            <code id="scenario-formula" class="text-emerald-300 font-mono font-bold text-sm sm:text-base">
+              =SOMA(B2:B4)
+            </code>
+          </div>
+
+          <div class="text-xs text-slate-400 mb-5 flex items-start gap-1.5">
+            <span class="text-emerald-400 font-bold shrink-0">💡 Dica:</span>
+            <p>Clique em "Executar Fórmula" para que a planilha faça as contas instantaneamente.</p>
+          </div>
+
+          <div class="space-y-3">
+            <button id="run-btn" onclick="executeSimulator()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 px-4 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 text-sm sm:text-base">
+              <svg class="w-4 h-4 fill-slate-950" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              Executar Fórmula
+            </button>
+            <button id="reset-btn" onclick="resetSimulator()" class="hidden w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded-xl transition-all text-xs">
+              Resetar Planilha
+            </button>
+          </div>
+
+          <!-- Mensagem de Sucesso -->
+          <div id="success-alert" class="hidden mt-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 flex gap-3">
+            <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              <strong>Sucesso!</strong> O Excel realizou as checagens e cálculos perfeitamente em milissegundos. Você aprenderá como automatizar controles completos assim do zero no curso!
+            </p>
+          </div>
+        </div>
+
+        <!-- Grade do Excel -->
+        <div class="lg:col-span-8 bg-slate-950 border border-slate-850 rounded-2xl p-4 sm:p-6 shadow-2xl relative">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4 text-xs">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+              <span class="text-slate-500 font-mono ml-2">excel_sem_neura.xlsx</span>
+            </div>
+            <span id="fx-bar" class="text-slate-400 bg-slate-900 px-3 py-1 rounded font-mono">
+              FX = =SOMA(B2:B4)
+            </span>
+          </div>
+
+          <!-- Planilha em formato tabela -->
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse border border-slate-850 text-left min-w-[450px]" id="excel-table">
+              <thead>
+                <tr class="bg-slate-900 text-slate-300 text-xs font-mono">
+                  <th class="border border-slate-850 p-2 w-10 text-center font-normal"></th>
+                  <th class="border border-slate-850 p-2 text-center">A</th>
+                  <th class="border border-slate-850 p-2 text-center">B</th>
+                  <th class="border border-slate-850 p-2 text-center">C</th>
+                </tr>
+              </thead>
+              <tbody id="table-body">
+                <!-- Injetado dinamicamente por JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mt-4 flex items-center justify-between text-xs text-slate-500 font-mono">
+            <span>💡 Clique duplo para mudar valores</span>
+            <span>Status: Pronto</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERATIVO 2: GERADOR DE FÓRMULAS IA (Mock Inteligente Dinâmico) -->
+  <section id="ia-assistente" class="py-20 bg-[#0d1321] border-y border-slate-900 scroll-mt-20">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-emerald-500/20 inline-flex items-center gap-1.5">
+          ✨ Inteligência Artificial Integrada
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold mt-4 tracking-tight">
+          Gerador de Fórmulas Instantâneo
+        </h2>
+        <p class="text-slate-400 mt-3 max-w-2xl mx-auto text-sm sm:text-base">
+          Escreva em português o que você deseja fazer na planilha e nossa IA estruturada montará a fórmula exata para você copiar e colar na sua planilha!
         </p>
       </div>
-      <div class="col-md-6 text-center">
-        <img
-          src="Captura de tela 2026-05-12 235247.png"
-          class="img-fluid rounded"
-          alt="Curso de Excel">
+
+      <div class="bg-[#0b0f19] border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
+        <div>
+          <label class="text-xs sm:text-sm font-semibold text-slate-300 block mb-2">Descreva o que deseja fazer no Excel:</label>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input type="text" id="ia-input" placeholder="Ex: Somar a coluna B se na coluna C estiver escrito 'Pago'..." class="flex-1 bg-slate-950 border border-slate-800 focus:border-emerald-500 text-sm py-3 px-4 rounded-xl focus:outline-none placeholder:text-slate-600" />
+            <button onclick="generateAIFormula()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-6 py-3 rounded-xl text-sm flex items-center justify-center gap-2 transition-all">
+              Criar Fórmula
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Exemplos rápidos -->
+        <div>
+          <span class="text-xs text-slate-500 block mb-2">Clique nos exemplos para testar o assistente:</span>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="testIA('Somar se for maior que 500')" class="bg-slate-950 hover:bg-slate-900 border border-slate-850 text-slate-300 text-xs py-2 px-3 rounded-lg transition-colors">
+              Somar maiores de 500
+            </button>
+            <button onclick="testIA('Descobrir o preço do produto usando o código')" class="bg-slate-950 hover:bg-slate-900 border border-slate-850 text-slate-300 text-xs py-2 px-3 rounded-lg transition-colors">
+              Buscar Preço (PROCV)
+            </button>
+            <button onclick="testIA('Escrever Status SE nota for maior ou igual a 7')" class="bg-slate-950 hover:bg-slate-900 border border-slate-850 text-slate-300 text-xs py-2 px-3 rounded-lg transition-colors">
+              Definir Aprovado/Reprovado
+            </button>
+          </div>
+        </div>
+
+        <!-- Feedback Gerando -->
+        <div id="ia-loading" class="hidden py-8 text-center flex flex-col items-center justify-center">
+          <div class="w-10 h-10 border-4 border-emerald-500/20 border-t-emerald-400 rounded-full animate-spin mb-4"></div>
+          <p class="text-sm font-medium text-slate-300">Analisando e montando a fórmula perfeita...</p>
+        </div>
+
+        <!-- Resultados da Fórmula -->
+        <div id="ia-result" class="hidden border-t border-slate-800 pt-6 space-y-4">
+          <div class="bg-slate-950 rounded-xl p-5 border border-slate-850 flex items-center justify-between gap-4">
+            <div>
+              <span class="text-xs text-emerald-400 font-mono font-bold block mb-1">SUA FÓRMULA DO EXCEL PRONTA:</span>
+              <code id="result-code" class="text-emerald-300 font-mono font-bold text-base sm:text-lg break-all">
+                =SE(B2>=7;"Aprovado";"Recuperação")
+              </code>
+            </div>
+            <button onclick="copyFormula()" class="bg-emerald-500/15 hover:bg-emerald-500/20 text-emerald-300 font-bold text-xs py-2 px-4 rounded-lg shrink-0 border border-emerald-500/20 transition-all">
+              <span id="copy-btn-txt">Copiar</span>
+            </button>
+          </div>
+
+          <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-850">
+            <h4 class="text-xs font-mono font-bold text-slate-400 uppercase tracking-wide mb-1">Como Funciona:</h4>
+            <p id="result-desc" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Analisa se a nota na célula B2 é igual ou superior a 7. Se for verdade, retorna "Aprovado", caso contrário escreve "Recuperação".
+            </p>
+          </div>
+          
+          <p class="text-center text-xs text-slate-400">
+            No curso completo, você aprenderá a dominar a lógica de todas essas funções passo a passo de forma simples!
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  
-  <section id="beneficios" class="section bg-light">
-    <div class="container text-center">
-      <h2>Por que aprender Excel?</h2>
+  <!-- INTERATIVO 3: QUIZ DE DIAGNÓSTICO -->
+  <section id="quiz" class="py-20 bg-[#0b0f19] scroll-mt-20">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-emerald-500/20">
+          🧠 Autoavaliação Rápida
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold mt-4 tracking-tight">
+          Descubra o seu Nível de Neura com Excel
+        </h2>
+        <p class="text-slate-400 mt-3 max-w-lg mx-auto text-sm sm:text-base">
+          Responda a estas 3 perguntas simples para descobrir seu nível atual de planilhas e garantir uma recompensa no final!
+        </p>
+      </div>
 
-      <div class="row mt-4">
-        <div class="col-md-4">
-          <div class="benefit-box">
-            <h5>Mais oportunidades</h5>
-            <p>Excel é exigido na maioria das vagas de emprego.</p>
+      <div class="bg-[#0d1321] border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden" id="quiz-box">
+        <!-- Pergunta 1 -->
+        <div id="q1" class="quiz-step space-y-6">
+          <div class="flex justify-between items-center text-xs text-slate-500 font-mono">
+            <span>PERGUNTA 1 DE 3</span>
+            <span>Nível: Iniciante</span>
+          </div>
+          <h3 class="text-base sm:text-lg font-bold text-white">Como você deve iniciar a inserção de qualquer fórmula ou função em uma célula?</h3>
+          
+          <div class="space-y-3">
+            <button onclick="answerQuiz(1, true)" class="w-full text-left p-4 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-slate-300 hover:text-white transition-all text-sm sm:text-base">
+              Colocando o sinal de igual (=) antes de tudo
+            </button>
+            <button onclick="answerQuiz(1, false)" class="w-full text-left p-4 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-slate-300 hover:text-white transition-all text-sm sm:text-base">
+              Digitando o nome da função em letras maiúsculas direto
+            </button>
+            <button onclick="answerQuiz(1, false)" class="w-full text-left p-4 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-slate-300 hover:text-white transition-all text-sm sm:text-base">
+              Iniciando com aspas duplas (" ")
+            </button>
           </div>
         </div>
 
-        <div class="col-md-4">
-          <div class="benefit-box">
-            <h5>Produtividade</h5>
-            <p>Organize informações, tabelas e relatórios com facilidade.</p>
+        <!-- Pergunta 2 -->
+        <div id="q2" class="quiz-step hidden space-y-6">
+          <div class="flex justify-between items-center text-xs text-slate-500 font-mono">
+            <span>PERGUNTA 2 DE 3</span>
+            <span>Nível: Intermediário</span>
+          </div>
+          <h3 class="text-base sm:text-lg font-bold text-white">Qual função você usaria se precisasse encontrar preços de produtos baseados apenas em um código identificador?</h3>
+          
+          <div class="space-y-3">
+            <button onclick="answerQuiz(2, false)" class="w-full text-left p-4 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-slate-300 hover:text-white transition-all text-sm sm:text-base">
+              Função SOMA
+            </button>
+            <button onclick="answerQuiz(2, true)" class="w-full text-left p-4 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-slate-300 hover:text-white transition-all text-sm sm:text-base">
+              Função PROCV
+            </button>
+            <button onclick="answerQuiz(2, false)" class="w-full text-left p-4 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-slate-300 hover:text-white transition-all text-sm sm:text-base">
+              Função CONCATENAR
+            </button>
           </div>
         </div>
 
-        <div class="col-md-4">
-          <div class="benefit-box">
-            <h5>Sem complicação</h5>
-            <p>Aprenda de forma prática, direto ao ponto e sem neura.</p>
+        <!-- Pergunta 3 -->
+        <div id="q3" class="quiz-step hidden space-y-6">
+          <div class="flex justify-between items-center text-xs text-slate-500 font-mono">
+            <span>PERGUNTA 3 DE 3</span>
+            <span>Nível: Avançado</span>
+          </div>
+          <h3 class="text-base sm:text-lg font-bold text-white">O que significa o clássico erro "#N/D" que trava muitas planilhas por aí?</h3>
+          
+          <div class="space-y-3">
+            <button onclick="answerQuiz(3, false)" class="w-full text-left p-4 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-slate-300 hover:text-white transition-all text-sm sm:text-base">
+              O Excel perdeu a conexão com o banco de dados
+            </button>
+            <button onclick="answerQuiz(3, false)" class="w-full text-left p-4 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-slate-300 hover:text-white transition-all text-sm sm:text-base">
+              Erro de divisão por zero na fórmula matemática
+            </button>
+            <button onclick="answerQuiz(3, true)" class="w-full text-left p-4 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-950 text-slate-300 hover:text-white transition-all text-sm sm:text-base">
+              Valor Não Disponível (a busca não encontrou correspondência)
+            </button>
+          </div>
+        </div>
+
+        <!-- Tela de Diagnóstico -->
+        <div id="quiz-result" class="hidden text-center py-6 space-y-6">
+          <div class="inline-flex p-4 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mb-2">
+            <svg class="w-12 h-12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          
+          <div>
+            <span class="text-xs text-slate-500 font-mono uppercase tracking-wider block mb-1">Seu Perfil Identificado:</span>
+            <h3 id="profile-level" class="text-xl sm:text-2xl font-bold text-emerald-300 font-display">
+              Diagnóstico Pendente
+            </h3>
+          </div>
+
+          <p id="profile-desc" class="text-slate-300 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
+            Explicação sobre o seu nível de habilidade e recomendação de estudo.
+          </p>
+
+          <!-- Cupom Desbloqueado -->
+          <div class="bg-slate-950 border-2 border-dashed border-emerald-500/30 rounded-2xl p-6 max-w-md mx-auto relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-emerald-500 text-slate-950 text-[10px] font-bold px-3 py-1 rounded-bl uppercase tracking-wider font-semibold">
+              Recompensa Liberada
+            </div>
+            
+            <span class="text-slate-400 text-xs block mb-1">Parabéns! Você ganhou:</span>
+            <span class="text-emerald-400 text-lg sm:text-xl font-black block tracking-wide">
+              R$ 30,00 EXTRA DE DESCONTO
+            </span>
+            <p class="text-slate-500 text-[11px] mt-1">Acumulativo com os 90% de desconto de lançamento!</p>
+            
+            <div class="mt-4 bg-slate-900 border border-slate-800 p-3 rounded-lg flex items-center justify-between gap-4">
+              <div class="text-left">
+                <span class="text-[9px] text-slate-500 font-mono block">CÓDIGO DO CUPOM:</span>
+                <span class="font-mono font-bold text-sm tracking-wider text-white uppercase">SEMNEURA30</span>
+              </div>
+              <a href="#checkout" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 rounded-lg text-xs transition-colors shrink-0">
+                Resgatar Desconto
+              </a>
+            </div>
+          </div>
+
+          <div class="pt-4 flex justify-center">
+            <button onclick="resetQuiz()" class="text-slate-400 hover:text-white font-semibold text-xs flex items-center gap-1.5 transition-colors">
+              Refazer Perguntas
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFÍCIOS DO EXCEL -->
+  <section id="beneficios" class="py-20 bg-[#0b0f19] scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-emerald-500/20">
+          🚀 Crescimento Profissional
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-display font-black mt-4 tracking-tight">
+          Por que dominar o Excel é indispensável?
+        </h2>
+        <p class="text-slate-400 mt-3 max-w-2xl mx-auto text-sm sm:text-base">
+          Muitos tentam fugir das planilhas, mas dominá-las é o atalho mais rápido para aumentar seu valor profissional.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Benefício 1 -->
+        <div class="bg-[#0d1321] border border-slate-850 rounded-2xl p-8 hover:-translate-y-1.5 transition-all duration-300">
+          <div class="bg-emerald-500/10 w-12 h-12 rounded-xl flex items-center justify-center text-emerald-400 mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-white mb-3">Vagas e Oportunidades Reais</h3>
+          <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+            Mais de 85% das vagas de escritório exigem conhecimento prático de planilhas. Dominar Excel garante que você pare de perder oportunidades por insegurança técnica.
+          </p>
+        </div>
+
+        <!-- Benefício 2 -->
+        <div class="bg-[#0d1321] border border-slate-850 rounded-2xl p-8 hover:-translate-y-1.5 transition-all duration-300">
+          <div class="bg-emerald-500/10 w-12 h-12 rounded-xl flex items-center justify-center text-emerald-400 mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-white mb-3">Produtividade Acelerada</h3>
+          <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+            Automatize tarefas mecânicas que levariam horas em apenas 5 minutos usando lógicas automáticas. Ganhe destaque economizando tempo útil da empresa.
+          </p>
+        </div>
+
+        <!-- Benefício 3 -->
+        <div class="bg-[#0d1321] border border-slate-850 rounded-2xl p-8 hover:-translate-y-1.5 transition-all duration-300">
+          <div class="bg-emerald-500/10 w-12 h-12 rounded-xl flex items-center justify-center text-emerald-400 mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-white mb-3">Sem Termos Impossíveis</h3>
+          <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+            Diga adeus a aulas com lógicas cansativas e acadêmicas de 100 horas. Aprenda o que é usado de fato na prática do mercado de trabalho de forma simplificada.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS DE ALUNOS -->
+  <section class="py-20 bg-[#0d1321] border-y border-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <span class="bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-emerald-500/20">
+          💬 Prova Social
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-display font-black mt-4 tracking-tight">
+          Quem aprendeu Sem Neura aprova!
+        </h2>
+        <p class="text-slate-400 mt-3 max-w-xl mx-auto text-sm sm:text-base">
+          Confira o relato de alunos comuns que superaram o bloqueio com cálculos e alcançaram destaque nas empresas.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Depoimento 1 -->
+        <div class="bg-[#0b0f19] border border-slate-850 rounded-2xl p-6 space-y-4">
+          <div class="flex items-center gap-1 text-yellow-400">
+            ★★★★★
+          </div>
+          <p class="text-slate-300 text-xs sm:text-sm italic leading-relaxed">
+            "Eu morria de vergonha de falar que não sabia usar o PROCV na minha antiga empresa. Fiz o curso em um fim de semana e mudei tudo. Na segunda-feira já estava ajudando minha equipe a cruzar planilhas!"
+          </p>
+          <div class="flex items-center gap-3 pt-2">
+            <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center font-bold text-emerald-400 text-sm shrink-0">
+              RC
+            </div>
+            <div>
+              <h4 class="text-xs sm:text-sm font-bold text-white">Rodrigo Cardoso</h4>
+              <span class="text-[10px] text-slate-500 block">Auxiliar Administrativo</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Depoimento 2 -->
+        <div class="bg-[#0b0f19] border border-slate-850 rounded-2xl p-6 space-y-4">
+          <div class="flex items-center gap-1 text-yellow-400">
+            ★★★★★
+          </div>
+          <p class="text-slate-300 text-xs sm:text-sm italic leading-relaxed">
+            "O método direto e os exemplos me ajudaram demais. O Excel deixou de ser aquele bicho de sete cabeças cheio de código. Hoje faço as planilhas financeiras do meu negócio sem dificuldade."
+          </p>
+          <div class="flex items-center gap-3 pt-2">
+            <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center font-bold text-emerald-400 text-sm shrink-0">
+              ML
+            </div>
+            <div>
+              <h4 class="text-xs sm:text-sm font-bold text-white">Mariana Lacerda</h4>
+              <span class="text-[10px] text-slate-500 block">Empreendedora</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Depoimento 3 -->
+        <div class="bg-[#0b0f19] border border-slate-850 rounded-2xl p-6 space-y-4">
+          <div class="flex items-center gap-1 text-yellow-400">
+            ★★★★★
+          </div>
+          <p class="text-slate-300 text-xs sm:text-sm italic leading-relaxed">
+            "O suporte via WhatsApp foi o diferencial para mim. Tive uma dúvida com uma planilha complexa de cobrança da empresa, mandei pros professores e eles me explicaram como resolver no mesmo dia!"
+          </p>
+          <div class="flex items-center gap-3 pt-2">
+            <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center font-bold text-emerald-400 text-sm shrink-0">
+              BS
+            </div>
+            <div>
+              <h4 class="text-xs sm:text-sm font-bold text-white">Bruno Silva</h4>
+              <span class="text-[10px] text-slate-500 block">Assistente de Cobrança</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
- 
-  <section id="checkout" class="section container text-center">
-    <h2>Comece hoje mesmo</h2>
-    <p>Acesso imediato • Conteúdo prático • Suporte ao aluno</p>
+  <!-- SEÇÃO DE COMPRA: CHECKOUT -->
+  <section id="checkout" class="py-20 bg-[#0b0f19] relative overflow-hidden scroll-mt-20">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
-    <a href="https://pay.kiwify.com.br/4TxorsF?afid=FiphHnrL" target="_blank"
-       class="btn btn-success cta-btn">
-      Comprar agora
-    </a>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+      <span class="bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-emerald-500/20 inline-flex items-center gap-1.5">
+        ⚡ Oferta Especial de Lançamento
+      </span>
 
-    <p class="mt-3 text-muted">
-      Pagamento 100% seguro
-    </p>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-black tracking-tight text-white mt-6">
+        Aprenda de Verdade Hoje <br class="hidden sm:inline" />
+        <span class="text-emerald-400">por apenas 39,90</span>
+      </h2>
+      <p class="text-slate-300 text-xs sm:text-sm max-w-xl mx-auto mt-4 leading-relaxed">
+        Acesso imediato ao material completo • Suporte de Professores • Certificado Incluso • Garantia integral de devolução
+      </p>
+
+      <!-- Cartão Principal de Preços -->
+      <div class="bg-[#0d1321] border-2 border-emerald-500/40 rounded-3xl p-6 sm:p-10 max-w-xl mx-auto mt-10 shadow-2xl space-y-6 relative">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-emerald-500 text-slate-950 font-bold text-xs px-4 py-1.5 rounded-full uppercase tracking-wider shadow">
+          90% de Desconto Ativado
+        </div>
+
+        <div class="space-y-2">
+          <span class="text-slate-500 line-through text-sm sm:text-base">De R$ 297,00</span>
+          <div class="flex items-baseline justify-center gap-2">
+            <span class="text-xs sm:text-sm text-slate-400 font-semibold">Por apenas</span>
+            <span class="text-4xl sm:text-5xl font-black text-white">R$ 39,90</span>
+            <span class="text-xs sm:text-sm text-slate-400 font-semibold">à vista</span>
+          </div>
+          <p class="text-emerald-400 text-xs font-bold uppercase tracking-wider">Formas de pagamento: Cartão, Pix ou Boleto.</p>
+        </div>
+
+        <!-- Benefícios inclusos -->
+        <div class="border-t border-b border-slate-800 py-6 space-y-3.5 text-left text-xs sm:text-sm">
+          <div class="flex items-center gap-3 text-slate-300">
+            <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="font-medium">Vídeo aulas completas gravadas em Alta Resolução</span>
+          </div>
+          <div class="flex items-center gap-3 text-slate-300">
+            <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="font-medium">Certificado de Conclusão Oficial incluso</span>
+          </div>
+          <div class="flex items-center gap-3 text-slate-300">
+            <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="font-medium">Bônus: Modelo Prontinho de Controle de Finanças</span>
+          </div>
+          <div class="flex items-center gap-3 text-slate-300">
+            <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="font-medium">Acesso Vitalício para assistir no seu ritmo</span>
+          </div>
+        </div>
+
+        <!-- Botão Final Compra -->
+        <div class="space-y-4">
+          <a href="https://pay.kiwify.com.br/4TxorsF?afid=FiphHnrL" target="_blank" rel="noreferrer" class="w-full text-center bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-6 py-4 rounded-xl tracking-wider text-base sm:text-lg transition-all shadow-xl shadow-emerald-500/20 hover:scale-[1.01] flex items-center justify-center gap-2">
+            Garantir Desconto Agora
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+
+          <div class="flex items-center justify-center gap-4 text-xs text-slate-400 font-medium pt-2">
+            <span class="flex items-center gap-1 text-emerald-400">
+              ✓ Garantia de 7 Dias
+            </span>
+            <span class="w-1 bg-slate-800 h-3"></span>
+            <span>Ambiente 100% Protegido</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  
-  <footer>
-    <p>
+  <!-- SEÇÃO DE FAQ (Perguntas Frequentes) -->
+  <section id="faq" class="py-20 bg-[#0d1321] border-t border-slate-900 scroll-mt-20">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <span class="bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-emerald-500/20">
+          ❓ Dúvidas Comuns
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold mt-4 tracking-tight">
+          Perguntas Frequentes
+        </h2>
+        <p class="text-slate-400 mt-3 max-w-xl mx-auto text-sm sm:text-base">
+          Compilamos as principais perguntas de quem deseja ingressar no Excel sem Neura.
+        </p>
+      </div>
 
-      📱 (71) 99109-3073<br>
-      ✉️ <a href="mailto:igordejesus295@outlook.com"></a>
-    </p>
-    <p>
-      Formas de pagamento: Pix • Débito • Crédito • Boleto
-    </p>
+      <!-- Accordions -->
+      <div class="space-y-4">
+        <!-- FAQ 1 -->
+        <div class="bg-[#0b0f19] border border-slate-850 rounded-2xl overflow-hidden">
+          <button onclick="toggleFAQ(0)" class="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 font-bold text-slate-100 hover:text-emerald-300 transition-colors">
+            <span>Preciso ter conhecimento prévio em planilhas?</span>
+            <span class="faq-icon text-slate-400 font-bold transition-transform text-lg" id="faq-icon-0">+</span>
+          </button>
+          <div class="hidden p-5 sm:p-6 text-slate-400 text-xs sm:text-sm leading-relaxed border-t border-slate-850" id="faq-ans-0">
+            Absolutamente não! O curso foi desenhado do absoluto zero. Você aprenderá desde como abrir o programa, como navegar pelas planilhas, até criar seus primeiros relatórios automáticos.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="bg-[#0b0f19] border border-slate-850 rounded-2xl overflow-hidden">
+          <button onclick="toggleFAQ(1)" class="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 font-bold text-slate-100 hover:text-emerald-300 transition-colors">
+            <span>O curso oferece certificado?</span>
+            <span class="faq-icon text-slate-400 font-bold transition-transform text-lg" id="faq-icon-1">+</span>
+          </button>
+          <div class="hidden p-5 sm:p-6 text-slate-400 text-xs sm:text-sm leading-relaxed border-t border-slate-850" id="faq-ans-1">
+            Sim! Ao concluir todas as aulas práticas e preencher seus desafios na plataforma, você poderá fazer o download de um Certificado de Conclusão oficial de 20 horas para turbinar o seu currículo e LinkedIn.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="bg-[#0b0f19] border border-slate-850 rounded-2xl overflow-hidden">
+          <button onclick="toggleFAQ(2)" class="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 font-bold text-slate-100 hover:text-emerald-300 transition-colors">
+            <span>E se eu não gostar, como funciona a garantia?</span>
+            <span class="faq-icon text-slate-400 font-bold transition-transform text-lg" id="faq-icon-2">+</span>
+          </button>
+          <div class="hidden p-5 sm:p-6 text-slate-400 text-xs sm:text-sm leading-relaxed border-t border-slate-850" id="faq-ans-2">
+            Disponibilizamos uma garantia incondicional de 7 dias. Se por qualquer motivo você achar que o método não é para você, basta solicitar o reembolso na plataforma e devolvemos 100% do seu investimento, sem burocracia ou perguntas.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="bg-[#0b0f19] border border-slate-850 rounded-2xl overflow-hidden">
+          <button onclick="toggleFAQ(3)" class="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 font-bold text-slate-100 hover:text-emerald-300 transition-colors">
+            <span>Por quanto tempo tenho acesso ao curso?</span>
+            <span class="faq-icon text-slate-400 font-bold transition-transform text-lg" id="faq-icon-3">+</span>
+          </button>
+          <div class="hidden p-5 sm:p-6 text-slate-400 text-xs sm:text-sm leading-relaxed border-t border-slate-850" id="faq-ans-3">
+            O acesso é vitalício! Você pode assistir e rever as aulas no seu próprio ritmo, de onde quiser e quantas vezes quiser. Também terá direito a todas as futuras atualizações de aulas.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ COMPLETO -->
+  <footer class="bg-slate-950 text-slate-400 py-12 px-4 border-t border-slate-900">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+      <!-- Coluna 1: Marca -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-2 text-white">
+          <div class="bg-emerald-500 p-1.5 rounded-lg text-slate-950">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <span class="font-display font-bold text-lg">
+            Excel <span class="text-emerald-400">sem Neura</span>
+          </span>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          Nossa missão é democratizar o aprendizado das ferramentas mais importantes do mercado. Chega de relatórios complicados. Aprenda de forma prática, direta e sem neura!
+        </p>
+      </div>
+
+      <!-- Coluna 2: Contatos -->
+      <div class="space-y-4">
+        <h4 class="text-white font-bold text-sm sm:text-base">📍 Canais de Suporte</h4>
+        <div class="space-y-2.5 text-xs sm:text-sm">
+          <a href="https://wa.me/5571991093073" target="_blank" rel="noreferrer" class="flex items-center gap-2 hover:text-emerald-400 transition-colors">
+            <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.244 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.742.002-2.602-1.01-5.05-2.85-6.893-1.839-1.843-4.285-2.859-6.885-2.86-5.442 0-9.869 4.37-9.873 9.743-.001 1.724.467 3.409 1.354 4.896l-.993 3.63 3.738-.971z"></path>
+            </svg>
+            <span>(71) 99109-3073</span>
+          </a>
+          <a href="mailto:igordejesus295@outlook.com" class="flex items-center gap-2 hover:text-emerald-400 transition-colors">
+            <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+            <span>igordejesus295@outlook.com</span>
+          </a>
+<div><a href="https://instagram.com/dominandoexcelsemneura" target="_blank" class="flex items-center gap-2 hover:text-pink-400 transition-colors">
+  <svg class=w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+    <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+  </svg>
+  <span>@dominandoexcelsemneura</span>
+</a>
+
+</div>
+        </div>
+      </div>
+      
+
+      <!-- Coluna 3: Pagamentos -->
+      <div class="space-y-4">
+        <h4 class="text-white font-bold text-sm sm:text-base">🔒 Compra Blindada</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Seus dados e relatórios de compra estão 100% protegidos com segurança criptografada ponta-a-ponta.
+        </p>
+        <div class="flex flex-wrap items-center gap-1.5 text-[10px] text-slate-300">
+          <span class="bg-slate-900 border border-slate-800 px-2.5 py-1 rounded">Pix</span>
+          <span class="bg-slate-900 border border-slate-800 px-2.5 py-1 rounded">Cartão de Crédito</span>
+          <span class="bg-slate-900 border border-slate-800 px-2.5 py-1 rounded">Boleto Bancário</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto border-t border-slate-900 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+      <span>© <span id="year">2026</span> Excel sem Neura. Todos os direitos reservados.</span>
+      <span class="flex items-center gap-1 text-emerald-500 font-medium">
+        ✓ Site Homologado e Seguro
+      </span>
+    </div>
   </footer>
+
+  <!-- NOTIFICAÇÕES SOCIAIS DE PROVA SOCIAL (Flutuante no canto inferior esquerdo) -->
+  <div id="live-notification" class="fixed bottom-6 left-6 z-50 max-w-sm transition-all duration-500 translate-y-20 opacity-0 pointer-events-none">
+    <div class="bg-slate-900/95 border border-slate-800 shadow-2xl p-4 rounded-2xl backdrop-blur text-sm text-slate-100 flex items-center gap-3">
+      <div class="bg-emerald-500 p-2 rounded-xl text-slate-950 shrink-0">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+        </svg>
+      </div>
+      <div>
+        <p class="font-bold text-xs text-emerald-400 uppercase tracking-wider">Aviso de Matrícula</p>
+        <p id="notif-text" class="text-slate-200 text-xs sm:text-sm mt-0.5">Carlos Santos acabou de garantir 90% de desconto!</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- SCRIPTS INTERATIVOS EM JAVASCRIPT VANILLA -->
+  <script>
+    // 1. ATUALIZAR ANO DO RODAPÉ AUTOMATICAMENTE
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    // 2. CONTROLE DE MENU MOBILE
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // 3. CRONÔMETRO DE DESCONTO (15 MINUTOS CONTÍNUOS)
+    let minutes = 14;
+    let seconds = 59;
+    const countdownEl = document.getElementById('countdown');
+
+    const countdownTimer = setInterval(() => {
+      seconds--;
+      if (seconds < 0) {
+        seconds = 59;
+        minutes--;
+      }
+      if (minutes < 0) {
+        minutes = 14; // reinicia simulando urgência contínua
+        seconds = 59;
+      }
+      const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      countdownEl.innerText = formattedTime;
+    }, 1000);
+
+    // 4. ESCASSEZ: DIMINUIÇÃO DAS VAGAS
+    let seats = 17;
+    const seatsEl = document.getElementById('seats');
+    const seatsInterval = setInterval(() => {
+      if (seats > 3) {
+        seats--;
+        seatsEl.innerText = seats;
+      } else {
+        clearInterval(seatsInterval);
+      }
+    }, 45000);
+
+    // 5. SIMULADOR DE PLANILHA INTERATIVO
+    const SCENARIOS = {
+      soma: {
+        challenge: "Queremos somar todas as despesas mensais da coluna B para descobrir o total gasto.",
+        formula: "=SOMA(B2:B4)",
+        targetCell: "B5",
+        highlights: ["B2", "B3", "B4"],
+        grid: {
+          A1: "Item", B1: "Valor (R$)", C1: "ID",
+          A2: "Aluguel", B2: "1200", C2: "DESP01",
+          A3: "Mercado", B3: "450", C3: "DESP02",
+          A4: "Internet", B4: "120", C4: "DESP03",
+          A5: "TOTAL", B5: "Aguardando", C5: "---"
+        },
+        resultValue: "1770"
+      },
+      se: {
+        challenge: "Se a nota do aluno for maior ou igual a 7,0, ele está Aprovado. Caso contrário, de Recuperação.",
+        formula: "=SE(B2>=7; \"Aprovado\"; \"Recuperação\")",
+        targetCell: "C2",
+        highlights: ["B2"],
+        grid: {
+          A1: "Aluno", B1: "Nota", C1: "Status",
+          A2: "Mariana", B2: "8.5", C2: "Aguardando",
+          A3: "Pedro", B3: "5.5", C3: "Pendente",
+          A4: "Lucas", B4: "7.0", C4: "Pendente",
+          A5: "Média Sala", B5: "7.0", C5: "---"
+        },
+        resultValue: "Aprovado"
+      },
+      procv: {
+        challenge: "Procurar o preço correspondente do produto com código 'A02' na nossa tabela de valores.",
+        formula: "=PROCV(\"A02\"; A2:B4; 2; FALSO)",
+        targetCell: "C2",
+        highlights: ["A3", "B3"],
+        grid: {
+          A1: "Código", B1: "Preço (R$)", C1: "Busca 'A02'",
+          A2: "A01", B2: "45.00", C2: "Aguardando",
+          A3: "A02", B3: "89.90", C3: "---",
+          A4: "A03", B4: "12.50", C4: "---",
+          A5: "Total Itens", B5: "3", C5: "---"
+        },
+        resultValue: "89.90"
+      }
+    };
+
+    let activeScenarioId = "soma";
+    let isExecuted = false;
+
+    // Renderiza a grade
+    function renderGrid() {
+      const scenario = SCENARIOS[activeScenarioId];
+      const tableBody = document.getElementById('table-body');
+      tableBody.innerHTML = "";
+
+      const rows = [1, 2, 3, 4, 5];
+      const cols = ["A", "B", "C"];
+
+      rows.forEach(row => {
+        let trHtml = `<tr class="hover:bg-slate-900/40 border-b border-slate-900">`;
+        // Coluna índice
+        trHtml += `<td class="bg-slate-900 border border-slate-850 text-center text-slate-500 text-xs font-mono py-2 font-bold select-none">${row}</td>`;
+        
+        cols.forEach(col => {
+          const cellRef = `${col}${row}`;
+          const val = scenario.grid[cellRef] || "";
+          const isTarget = cellRef === scenario.targetCell;
+          const isHeader = row === 1;
+          
+          let cellClass = "border border-slate-850 p-2 text-xs sm:text-sm relative font-medium ";
+          
+          if (isHeader) {
+            cellClass += "bg-slate-900 text-slate-300 font-bold text-center select-none cursor-default";
+          } else if (isTarget) {
+            cellClass += isExecuted ? "bg-emerald-500/20 text-emerald-300 font-bold border-emerald-500" : "text-slate-500 italic bg-slate-900/20";
+          } else {
+            cellClass += "text-slate-200 cursor-pointer hover:bg-slate-850/40";
+          }
+
+          trHtml += `<td id="cell-${cellRef}" class="${cellClass}" ondblclick="editCell('${cellRef}', ${isHeader || isTarget})">${val}</td>`;
+        });
+        
+        trHtml += `</tr>`;
+        tableBody.innerHTML += trHtml;
+      });
+    }
+
+    // Mudar de Aba/Cenário
+    function changeScenario(id) {
+      activeScenarioId = id;
+      isExecuted = false;
+      
+      // Atualiza aba ativa
+      const tabs = ["soma", "se", "procv"];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        if (t === id) {
+          btn.className = "px-5 py-3 rounded-xl font-bold text-xs sm:text-sm border transition-all bg-emerald-500 text-slate-950 border-emerald-400 shadow-md";
+        } else {
+          btn.className = "px-5 py-3 rounded-xl font-medium text-xs sm:text-sm border border-slate-850 bg-slate-900 text-slate-300 hover:text-white transition-all";
+        }
+      });
+
+      // Atualiza textos explicativos
+      document.getElementById('scenario-challenge').innerText = SCENARIOS[id].challenge;
+      document.getElementById('scenario-formula').innerText = SCENARIOS[id].formula;
+      document.getElementById('fx-bar').innerText = `FX = ${SCENARIOS[id].formula}`;
+
+      // Reset botões
+      document.getElementById('run-btn').classList.remove('hidden');
+      document.getElementById('reset-btn').classList.add('hidden');
+      document.getElementById('success-alert').classList.add('hidden');
+
+      renderGrid();
+    }
+
+    // Executar a fórmula do Simulador
+    function executeSimulator() {
+      if (isExecuted) return;
+      const scenario = SCENARIOS[activeScenarioId];
+
+      // Passo 1: Destacar as células de entrada envolvidas
+      scenario.highlights.forEach(cell => {
+        const el = document.getElementById(`cell-${cell}`);
+        if (el) {
+          el.className += " bg-emerald-500/20 border-emerald-400 text-emerald-300 font-bold";
+        }
+      });
+
+      // Passo 2: Mostrar processamento rápido
+      const targetEl = document.getElementById(`cell-${scenario.targetCell}`);
+      targetEl.innerText = "Calculando...";
+      targetEl.className += " animate-pulse text-yellow-300";
+
+      setTimeout(() => {
+        isExecuted = true;
+        renderGrid();
+        
+        // Atualiza valor final
+        const finalEl = document.getElementById(`cell-${scenario.targetCell}`);
+        finalEl.innerText = scenario.resultValue;
+
+        // Revela alertas
+        document.getElementById('run-btn').classList.add('hidden');
+        document.getElementById('reset-btn').classList.remove('hidden');
+        document.getElementById('success-alert').classList.remove('hidden');
+      }, 1200);
+    }
+
+    // Resetar Planilha
+    function resetSimulator() {
+      isExecuted = false;
+      renderGrid();
+      document.getElementById('run-btn').classList.remove('hidden');
+      document.getElementById('reset-btn').classList.add('hidden');
+      document.getElementById('success-alert').classList.add('hidden');
+    }
+
+    // Edição rápida de célula
+    function editCell(ref, disabled) {
+      if (disabled) return;
+      const cell = document.getElementById(`cell-${ref}`);
+      const originalValue = cell.innerText;
+      
+      cell.innerHTML = `<input id="editing-input" type="text" class="absolute inset-0 w-full h-full bg-slate-800 text-white text-xs px-2 focus:outline-none focus:ring-1 focus:ring-emerald-400" value="${originalValue}">`;
+      
+      const input = document.getElementById('editing-input');
+      input.focus();
+      input.select();
+
+      const saveEdit = () => {
+        const newVal = input.value;
+        SCENARIOS[activeScenarioId].grid[ref] = newVal;
+        renderGrid();
+      };
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') saveEdit();
+      });
+      input.addEventListener('blur', saveEdit);
+    }
+
+    // Inicializa o simulador padrão na montagem
+    renderGrid();
+
+
+    // 6. INTELIGÊNCIA ARTIFICIAL: GERADOR DE FÓRMULAS CLIENT-SIDE
+    const AI_RESPONSES = {
+      default: {
+        formula: "=SOMA(B2:B10)",
+        desc: "Essa fórmula realiza a soma simples dos valores localizados nas linhas de B2 até B10."
+      },
+      "Somar se for maior que 500": {
+        formula: "=SOMASE(B2:B15; \">500\")",
+        desc: "Utiliza a lógica SOMASE para analisar o intervalo de B2 até B15 e somar somente as células cujos valores ultrapassam 500 reais."
+      },
+      "Descobrir o preço do produto usando o código": {
+        formula: "=PROCV(\"A02\"; A2:B20; 2; FALSO)",
+        desc: "A função busca verticalmente pela referência 'A02' na primeira coluna do intervalo A2:B20 e retorna o valor correspondente da segunda coluna (Preço)."
+      },
+      "Escrever Status SE nota for maior ou igual a 7": {
+        formula: "=SE(B2>=7; \"Aprovado\"; \"Recuperação\")",
+        desc: "Uma condicional lógica simples. Se a nota de B2 for maior ou igual a 7, ela imprime 'Aprovado'. Caso contrário, imprimirá 'Recuperação'."
+      }
+    };
+
+    function testIA(prompt) {
+      document.getElementById('ia-input').value = prompt;
+      generateAIFormula();
+    }
+
+    function generateAIFormula() {
+      const prompt = document.getElementById('ia-input').value.trim();
+      if (!prompt) return;
+
+      document.getElementById('ia-result').classList.add('hidden');
+      document.getElementById('ia-loading').classList.remove('hidden');
+
+      setTimeout(() => {
+        document.getElementById('ia-loading').classList.add('hidden');
+        document.getElementById('ia-result').classList.remove('hidden');
+
+        // Busca resposta aproximada ou usa padrão
+        let match = AI_RESPONSES[prompt] || AI_RESPONSES.default;
+        
+        // Se for digitação customizada pelo usuário, monta dinamicamente baseada em palavras-chave
+        if (!AI_RESPONSES[prompt]) {
+          if (prompt.toLowerCase().includes('soma') || prompt.toLowerCase().includes('somar')) {
+            match = {
+              formula: "=SOMA(B2:B20)",
+              desc: `Criamos uma fórmula de soma automática baseada no seu pedido. Ela somará os registros da coluna B.`
+            };
+          } else if (prompt.toLowerCase().includes('buscar') || prompt.toLowerCase().includes('procurar') || prompt.toLowerCase().includes('procv')) {
+            match = {
+              formula: "=PROCV(A2; D:E; 2; FALSO)",
+              desc: "Busca o valor da célula A2 dentro de uma matriz de dados na coluna D e E, trazendo o retorno correto automaticamente."
+            };
+          } else {
+            match = {
+              formula: `=SE(A2="Pago"; "Liberado"; "Pendente")`,
+              desc: `Análise de condição dinâmica para automatizar o seu status. Retorna respostas baseadas no preenchimento de palavras.`
+            };
+          }
+        }
+
+        document.getElementById('result-code').innerText = match.formula;
+        document.getElementById('result-desc').innerText = match.desc;
+      }, 1000);
+    }
+
+    function copyFormula() {
+      const formulaText = document.getElementById('result-code').innerText;
+      navigator.clipboard.writeText(formulaText);
+      const copyBtn = document.getElementById('copy-btn-txt');
+      copyBtn.innerText = "Copiado!";
+      setTimeout(() => {
+        copyBtn.innerText = "Copiar";
+      }, 2000);
+    }
+
+
+    // 7. QUIZ DE DIAGNÓSTICO INTERATIVO
+    let currentStep = 1;
+    let correctAnswers = 0;
+
+    function answerQuiz(step, isCorrect) {
+      if (isCorrect) correctAnswers++;
+
+      // Esconde passo atual
+      document.getElementById(`q${step}`).classList.add('hidden');
+
+      // Avança
+      if (step < 3) {
+        currentStep++;
+        document.getElementById(`q${currentStep}`).classList.remove('hidden');
+      } else {
+        showQuizResult();
+      }
+    }
+
+    function showQuizResult() {
+      document.getElementById('quiz-result').classList.remove('hidden');
+      const levelEl = document.getElementById('profile-level');
+      const descEl = document.getElementById('profile-desc');
+
+      if (correctAnswers === 3) {
+        levelEl.innerText = "Sem Neura (Avançado em Potencial) 😎";
+        descEl.innerText = "Você tem excelente raciocínio lógico e entende os pilares fundamentais de sintaxe! O seu próximo passo é dominar dashboards inteligentes, relatórios dinâmicos e automações avançadas de rotinas corporativas para acelerar sua carreira.";
+      } else if (correctAnswers >= 1) {
+        levelEl.innerText = "Sobrevivente do Excel (Intermediário Trêmulo) 🤕";
+        descEl.innerText = "Você conhece alguns termos, mas sente calafrios e ansiedade sempre que uma tabela trava ou exibe erros clássicos como #N/D ou #REF!. Você perde horas preciosas pesquisando tutoriais no YouTube para tarefas simples de rotina.";
+      } else {
+        levelEl.innerText = "Neura Total (Iniciante Bloqueado) 😱";
+        descEl.innerText = "O Excel parece um programa alienígena cheio de fórmulas impossíveis de decorar. Fique calmo! Mais de 95% dos nossos alunos iniciaram exatamente neste perfil e hoje produzem planilhas inteligentes sem esforço.";
+      }
+    }
+
+    function resetQuiz() {
+      currentStep = 1;
+      correctAnswers = 0;
+      document.getElementById('quiz-result').classList.add('hidden');
+      document.getElementById('q1').classList.remove('hidden');
+      document.getElementById('q2').classList.add('hidden');
+      document.getElementById('q3').classList.add('hidden');
+    }
+
+
+    // 8. ACCORDION FAQ
+    function toggleFAQ(idx) {
+      const ans = document.getElementById(`faq-ans-${idx}`);
+      const icon = document.getElementById(`faq-icon-${idx}`);
+      
+      const isHidden = ans.classList.contains('hidden');
+      
+      if (isHidden) {
+        ans.classList.remove('hidden');
+        icon.innerText = "-";
+        icon.classList.add('text-emerald-400');
+      } else {
+        ans.classList.add('hidden');
+        icon.innerText = "+";
+        icon.classList.remove('text-emerald-400');
+      }
+    }
+
+
+    // 9. PROVA SOCIAL: NOTIFICAÇÕES LIVE FLUTUANTES
+    const NOTIFICATIONS = [
+      "Ana Souza acabou de garantir 90% de desconto! 🎉",
+      "Carlos Santos de Salvador comprou o curso agora! ⚡",
+      "Mariana Lima liberou o certificado de 20h! 🎓",
+      "Juliano Pereira resgatou o cupom de R$30 do Quiz! 💥",
+      "Mais de 142 alunos estudando nas últimas 24h!"
+    ];
+
+    const notifEl = document.getElementById('live-notification');
+    const notifTextEl = document.getElementById('notif-text');
+
+    function showNotification() {
+      const randomMsg = NOTIFICATIONS[Math.floor(Math.random() * NOTIFICATIONS.length)];
+      notifTextEl.innerText = randomMsg;
+      
+      // Slide UP and Fade IN
+      notifEl.classList.remove('translate-y-20', 'opacity-0');
+      notifEl.classList.add('translate-y-0', 'opacity-100');
+
+      // Slide DOWN after 4 seconds
+      setTimeout(() => {
+        notifEl.classList.remove('translate-y-0', 'opacity-100');
+        notifEl.classList.add('translate-y-20', 'opacity-0');
+      }, 4000);
+    }
+
+    // Inicia notificações simuladas de compra
+    setTimeout(showNotification, 4000);
+    setInterval(showNotification, 15000);
+  </script>
 
 </body>
 </html>
